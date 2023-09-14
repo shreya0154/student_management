@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+    <title>crudapp</title>
+</head>
+<body>
+  
+     <header>
+        <nav class="navbar navbar-expand-lg bg-body-secondary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">Navbar</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Dropdown
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Action</a></li>
+                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                  </li>
+                </ul>
+                <form class="d-flex" role="search">
+                  <input id="toBeSearched" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                  <button id = "searchBtn" class="btn btn-outline-success" type="submit" onClick="searchItem(this)">Search</button>
+                </form>
+              </div>
+            </div>
+          </nav>
+     </header>
+     <main>
+        <div class="container col-6">
+        <div class="input-group mb-3 mt-5">
+            <input id = "bookInput" type="text" class="form-control" placeholder="Book Name" aria-label="Book Name" aria-describedby="button-addon2">
+            <button class="btn btn-outline-success" type="button" id="button-addon2">Add</button>
+          </div>
+          
+          <ul id = "list" class="list-group">
+            <li id = "listItem" class="list-group-item d-flex justify-content-between"><h4 class = "flex-grow-1">An item</h4>
+              <button id = "removeItem" class ="btn btn-warning mx-2" onClick = "removeItem(this)">Remove</button>
+            </li>
+            
+          </ul>
+        </div>
+     </main>
+</body>
+
+
+<script>
+let add = document.getElementById('button-addon2');
+// let bookInput = document.getElementById('document.getElementById');
+add.addEventListener('click' , addItem);
+let parentList = document.getElementById('list');
+function addItem(){
+  var newItem = document.createElement('li');
+  newItem.setAttribute('id' , "listItem");
+  newItem.setAttribute('class' , "list-group-item d-flex justify-content-between");
+  newItem.innerHTML = `<h4 class = "flex-grow-1">${document.getElementById('bookInput').value}</h4>
+  <button id = "removeItem" class ="btn btn-warning mx-2" onClick = "removeItem(this)">Remove</button>`
+  parentList.appendChild(newItem);
+}
+
+// let remove = document.getElementById('removeItem');
+// remove.addEventListener('click' , removeItem);
+function removeItem(e){
+  let parent = e.parentElement;
+  
+  parent.remove();
+  
+}
+
+
+function searchItem(e){
+  let toBeSearched = e.previousElementSibling.value;
+  for(var i = 0; i<(parentList.children.length); i++){
+    if(parentList.children[i].firstChild.textContent.includes(toBeSearched)){
+      alert(toBeSearched + " is present in list");
+      break;
+    }
+    else if(i == (parentList.children.length - 1)){
+      alert("Sorry! " + toBeSearched + " is not present in list");
+    }
+  }
+  
+  
+}
+</script>
+
+
+</html>
